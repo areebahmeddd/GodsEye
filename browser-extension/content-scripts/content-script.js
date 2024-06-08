@@ -127,6 +127,24 @@ mainBody.id = "main-body";
 contentDiv.appendChild(mainBody);
 
 // Summary Div
+let summaryHeader = document.createElement("div");
+summaryHeader.id = "summary-header";
+summaryHeader.innerText = "Summary";
+summaryHeader.classList.add("header");
+summaryHeader.style.userSelect = "none";
+// Modify in content-script.js
+summaryHeader.addEventListener("click", function () {
+  // Toggle the 'hidden' class on summaryDiv
+  summaryDiv.classList.toggle("hidden");
+  // Toggle a class that adds/removes the border-radius
+  this.classList.toggle("rounded-bottom");
+  // Toggle the 'expanded' class to trigger the transition
+  summaryDiv.classList.toggle("expanded");
+});
+mainBody.appendChild(summaryHeader);
+
 let summaryDiv = document.createElement("div");
 summaryDiv.id = "summary-div";
 mainBody.appendChild(summaryDiv);
+summaryDiv.classList.add("content");
+summaryDiv.textContent = "Summary of the product";
