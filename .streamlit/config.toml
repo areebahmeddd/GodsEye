@@ -10,6 +10,3 @@ gatherUsageStats = false
 
 [server]
 runOnSave = true
-
-[client]
-showSidebarNavigation = false
