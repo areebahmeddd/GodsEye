@@ -1,0 +1,26 @@
+{
+  "name": "Gods Eye",
+  "description": "Automated Feedback System",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-scripts/content-script.js"],
+      "css": ["content-scripts/content-script.css"]
+    }
+  ],
+  "permissions": ["activeTab"],
+  "web_accessible_resources": [
+    {
+      "resources": ["*.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
