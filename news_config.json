@@ -1,0 +1,26 @@
+{
+    "news_sources": [
+        "China Daily",
+        "Metro",
+        "O Globo",
+        "The Canberra Times",
+        "The Japan Times",
+        "The New York Times",
+        "Russia Today",
+        "Saudi Gazette",
+        "The Sunday Times",
+        "The Times of India"
+    ],
+    "news_topics": [
+        "Business",
+        "Entertainment",
+        "Environment",
+        "Health",
+        "Politics",
+        "Science",
+        "Sports",
+        "Technology",
+        "Travel",
+        "World News"
+    ]
+}
