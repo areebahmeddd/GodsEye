@@ -1,8 +1,12 @@
 import streamlit as st
 
 def analyse():
-    st.set_page_config(page_title='Gods Eye', page_icon='/favicon.png', layout='wide', initial_sidebar_state='collapsed')
-    st.title('Dashboard')
+    st.set_page_config(page_title='Gods Eye', page_icon='assets/favicon.png', layout='wide', initial_sidebar_state='collapsed')
+    st.markdown(
+        "<h1 style='text-align: center;'>Dashboard</h1>",
+        unsafe_allow_html=True
+    )
+    st.divider()
 
     col1, col2, col3, col4 = st.columns([2, 2, 2, 2])
 
@@ -35,10 +39,10 @@ def analyse():
     else:
         st.text_area('Article Summary', value='Unavailable', height=100, help='Powered by Gemini')
 
-    if 'article_verification' in st.session_state and 'article_credibility' in st.session_state:
-        st.text_area('Verification & Credibility Check', value=st.session_state.article_verification, height=200)
+    if 'article_authenticity' in st.session_state:
+        st.text_area('Verification & Credibility Check', value=st.session_state.article_authenticity, height=200, help='Powered by Gemini')
     else:
-        st.text_area('Verification & Credibility Check', value='Unavailable', height=100)
+        st.text_area('Verification & Credibility Check', value='Unavailable', height=100, help='Powered by Gemini')
 
     st.divider()
 
@@ -81,8 +85,8 @@ def analyse():
         else:
             st.write(':green[Language]: Unavailable')
 
-        if 'article_read_time' in st.session_state:
-            st.write(f':red[Read Time]: {st.session_state.article_read_time}')
+        if 'read_time' in st.session_state:
+            st.write(f':red[Read Time]: {st.session_state.read_time}')
         else:
             st.write(':red[Read Time]: Unavailable')
 
