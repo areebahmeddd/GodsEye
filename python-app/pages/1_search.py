@@ -1,7 +1,12 @@
 import streamlit as st
 
 def search():
-    st.set_page_config(page_title='Gods Eye', page_icon='assets/favicon.png', layout='wide', initial_sidebar_state='collapsed')
+    st.set_page_config(
+        page_title='Gods Eye - Dashboard',
+        page_icon='assets/favicon.png',
+        layout='wide',
+        initial_sidebar_state='collapsed'
+    )
     st.markdown(
         "<h1 style='text-align: center;'>Dashboard</h1>",
         unsafe_allow_html=True

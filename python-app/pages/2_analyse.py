@@ -1,7 +1,12 @@
 import streamlit as st
 
 def analyse():
-    st.set_page_config(page_title='Gods Eye', page_icon='assets/favicon.png', layout='wide', initial_sidebar_state='collapsed')
+    st.set_page_config(
+        page_title='Gods Eye - Dashboard',
+        page_icon='assets/favicon.png',
+        layout='wide',
+        initial_sidebar_state='collapsed'
+    )
     st.markdown(
         "<h1 style='text-align: center;'>Dashboard</h1>",
         unsafe_allow_html=True
@@ -18,7 +23,7 @@ def analyse():
 
     with col2:
         if 'published_date' in st.session_state:
-                col2 = st.text_input('Published Date', value=st.session_state.published_date)
+            col2 = st.text_input('Published Date', value=st.session_state.published_date)
         else:
             col2 = st.text_input('Published Date', value='Unavailable')
 
