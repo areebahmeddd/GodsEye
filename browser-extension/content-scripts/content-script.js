@@ -126,25 +126,116 @@ let mainBody = document.createElement("div");
 mainBody.id = "main-body";
 contentDiv.appendChild(mainBody);
 
-// Summary Div
-let summaryHeader = document.createElement("div");
-summaryHeader.id = "summary-header";
-summaryHeader.innerText = "Summary";
-summaryHeader.classList.add("header");
-summaryHeader.style.userSelect = "none";
-// Modify in content-script.js
-summaryHeader.addEventListener("click", function () {
-  // Toggle the 'hidden' class on summaryDiv
-  summaryDiv.classList.toggle("hidden");
-  // Toggle a class that adds/removes the border-radius
-  this.classList.toggle("rounded-bottom");
-  // Toggle the 'expanded' class to trigger the transition
-  summaryDiv.classList.toggle("expanded");
-});
-mainBody.appendChild(summaryHeader);
+function createElementWithType(type, percent = null) {
+  // Create header and content divs
+  let headerWrapper = document.createElement("div");
+  let headerDiv = document.createElement("div");
+  let contentDiv = document.createElement("div");
 
-let summaryDiv = document.createElement("div");
-summaryDiv.id = "summary-div";
-mainBody.appendChild(summaryDiv);
-summaryDiv.classList.add("content");
-summaryDiv.textContent = "Summary of the product";
+  // Set IDs and classes based on type
+  headerDiv.id = `${type}-header`;
+  headerWrapper.id = `${type}-header-wrapper`;
+  contentDiv.id = `${type}-content`;
+  headerDiv.classList.add("header");
+  headerWrapper.classList.add("header-wrapper");
+  contentDiv.classList.add("content");
+
+  // Use the capitalize function for the header text
+  headerDiv.innerText = capitalize(type);
+  headerWrapper.appendChild(headerDiv);
+
+  if (percent) {
+    let percentDiv = document.createElement("div");
+    percentDiv.id = `${type}-percent`;
+    percentDiv.classList.add("percent");
+    percentDiv.innerText = `${percent.value}%`;
+    percentDiv.style.color = percent.color;
+    headerWrapper.appendChild(percentDiv);
+  }
+
+  // Prevent text selection
+  headerWrapper.style.userSelect = "none";
+
+  // Add click event listener to toggle content visibility
+  headerWrapper.addEventListener("click", function () {
+    contentDiv.classList.toggle("hidden");
+    this.classList.toggle("rounded-bottom");
+    contentDiv.classList.toggle("expanded");
+  });
+
+  // Append to mainBody or a specified parent element
+  mainBody.appendChild(headerWrapper); // Adjust as needed
+  mainBody.appendChild(contentDiv); // Adjust as needed
+
+  // Send a message to fetch content based on type
+  chrome.runtime.sendMessage(
+    { text: "fetchContentFor", type: type },
+    (response) => {
+      if (chrome.runtime.lastError) {
+        console.error("Error:", chrome.runtime.lastError.message);
+        // Optionally handle the error, e.g., show a default message
+        contentDiv.textContent = "Content not available";
+      } else if (response && response.content) {
+        // Set the contentDiv textContent with the received content
+        contentDiv.textContent = response.content;
+      } else {
+        console.error(`${capitalize(type)} content not received`);
+        // Optionally handle the absence of content
+        contentDiv.textContent = "Content not available";
+      }
+    }
+  );
+}
+
+createElementWithType("summary");
+createElementWithType("positive", { value: 40, color: "green" });
+createElementWithType("negative", { value: 60, color: "red" });
+createElementWithType("authenticity");
+
+// Create and append the first <hr>
+let hr1 = document.createElement("hr");
+// hr1.style.marginTop = "20px"; // Adjust the value as needed
+// hr1.style.marginBottom = "20px"; // Adjust the value as needed
+mainBody.appendChild(hr1);
+
+// Function to create an element, set its content, and append it to the parent
+function createElement(tagName, parent, className, innerText) {
+  let element = document.createElement(tagName);
+  if (className) {
+    element.className = className;
+  }
+  if (innerText) {
+    element.innerText = innerText;
+  }
+  parent.appendChild(element);
+  return element;
+}
+
+// Create article analysis section and append it
+let articleAnalysis = createElement("div", mainBody, "article-analysis");
+mainBody.appendChild(articleAnalysis);
+
+// Create and append the second <hr>
+let hr2 = document.createElement("hr");
+mainBody.appendChild(hr2);
+
+// Create media analysis section and append it
+let mediaAnalysis = createElement("div", mainBody, "media-analysis");
+mainBody.appendChild(mediaAnalysis);
+
+// Create analysis elements for article analysis
+createElement("div", articleAnalysis, "analysis-ele", "Published By: ");
+createElement("div", articleAnalysis, "analysis-ele", "Published Date: ");
+createElement("div", articleAnalysis, "analysis-ele", "Written By: ");
+createElement("div", articleAnalysis, "analysis-ele", "Last Edited: ");
+
+// Create analysis elements for media analysis
+createElement("div", mediaAnalysis, "analysis-ele", "Language: ");
+createElement("div", mediaAnalysis, "analysis-ele", "Reading Time: ");
+createElement("div", mediaAnalysis, "analysis-ele", "Links: ");
+createElement("div", mediaAnalysis, "analysis-ele", "Videos: ");
+
+let gemini = document.createElement("div");
+gemini.id = "gemini";
+gemini.textContent = "Powered by Gemini";
+mainBody.appendChild(gemini);
