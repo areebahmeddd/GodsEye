@@ -1,4 +1,5 @@
 import streamlit as st
+import requests
 import json
 from datetime import datetime
 from utils import custom_css, person_card
@@ -25,7 +26,7 @@ def index():
         st.session_state.news_source = st.selectbox('News Source', news_data['news_sources'], index=None)
 
     with col2:
-        st.session_state.news_date = st.date_input('News Date', datetime.now(), format='DD/MM/YYYY')
+        st.session_state.news_date = st.date_input('News Date', datetime.now(), format='DD-MM-YYYY')
 
     with col3:
         st.session_state.news_topic = st.selectbox('News Topic', news_data['news_topics'], index=None)
@@ -34,7 +35,14 @@ def index():
         if not st.session_state.news_source or not st.session_state.news_topic:
             st.warning('Please select the news source and topic', icon=':material/warning:')
         else:
-            st.switch_page('pages/1_search.py')
+            api_response = requests.post(
+                'http://localhost:8000/api/archive',
+                json={'date': st.session_state.news_date.strftime('%d-%m-%Y'), 'topic': st.session_state.news_topic}
+            )
+            if api_response.status_code == 200:
+                st.switch_page('pages/1_search.py')
+            else:
+                st.error('Error occurred while processing the news articles', icon=':material/error:')
 
     st.markdown(
         "<p style='text-align: center;'>───── Or ─────</p>",
@@ -47,7 +55,14 @@ def index():
         if not st.session_state.article_url:
             st.warning('Please enter the article URL', icon=':material/warning:')
         else:
-            st.switch_page('pages/2_analyse.py')
+            api_response = requests.post(
+                'http://localhost:8000/api/url',
+                json={'url': st.session_state.article_url}
+            )
+            if api_response.status_code == 200:
+                st.switch_page('pages/2_analyse.py')
+            else:
+                st.error('Error occurred while processing the article', icon=':material/error:')
 
     st.markdown(
         "<h1 style='text-align: center;'>Project Demo</h1>",
@@ -63,8 +78,8 @@ def index():
     )
     st.divider()
 
-    row1, row2 = st.columns(2), st.columns(2)
-    grid = [col.container(height=560) for col in row1 + row2]
+    row = st.columns(3)
+    grid = [col.container(height=560) for col in row]
 
     with grid[0]:
         person_card(
@@ -94,16 +109,6 @@ def index():
             'shivansh.karan@gmail.com',
             'https://github.com/SpaceTesla',
             'https://linkedin.com/in/shivansh-karan'
-        )
-
-    with grid[3]:
-        person_card(
-            'Anish',
-            'assets/anish.png',
-            'App Developer',
-            'anishvarma.ava@gmail.com',
-            'https://github.com/Av7danger',
-            'https://linkedin.com/in/danishvarma'
         )
 
     st.markdown(
