@@ -91,4 +91,13 @@ def search():
 
     st.divider()
 
+    st.markdown(
+        """
+        <footer style='text-align: center; margin-top: 40px;'>
+            <p>Powered by Gemini</p>
+        </footer>
+        """,
+        unsafe_allow_html=True
+    )
+
 search()

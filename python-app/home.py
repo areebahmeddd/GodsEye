@@ -93,22 +93,22 @@ def index():
 
     with grid[1]:
         person_card(
-            'Hemamalini',
-            'assets/hemamalini.png',
-            'Backend Developer',
-            '1ds22cb091@dsce.edu.in',
-            'https://github.com/1DS22CS091hemamalini',
-            'https://linkedin.com/in/hemamalini-srinivas-191a96256'
-        )
-
-    with grid[2]:
-        person_card(
             'Shivansh',
             'assets/shivansh.png',
             'Chrome Extension Developer',
             'shivansh.karan@gmail.com',
             'https://github.com/SpaceTesla',
             'https://linkedin.com/in/shivansh-karan'
+        )
+
+    with grid[2]:
+        person_card(
+            'Hemamalini',
+            'assets/hemamalini.png',
+            'Backend Developer',
+            '1ds22cb091@dsce.edu.in',
+            'https://github.com/1DS22CS091hemamalini',
+            'https://linkedin.com/in/hemamalini-srinivas-191a96256'
         )
 
     st.markdown(
@@ -122,5 +122,4 @@ def index():
         unsafe_allow_html=True
     )
 
-if __name__ == '__main__':
-    index()
+index()

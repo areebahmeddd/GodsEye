@@ -1,4 +1,5 @@
 import streamlit as st
+from gemini import chat_session
 
 def chat():
     st.set_page_config(
@@ -24,8 +25,15 @@ def chat():
         st.chat_message('user').markdown(prompt)
         st.session_state.messages.append({'role': 'user', 'content': prompt})
 
+        with st.spinner('Creating a new perspective...'):
+            response = chat_session.send_message(prompt)
+            if response.candidates:
+                assistant_response = response.candidates[0].content.parts[0].text
+            else:
+                assistant_response = "I'm sorry, but I couldn't generate a response."
+
         with st.chat_message('assistant'):
-            st.markdown(prompt)
-        st.session_state.messages.append({'role': 'assistant', 'content': prompt})
+            st.markdown(assistant_response)
+        st.session_state.messages.append({'role': 'assistant', 'content': assistant_response})
 
 chat()
