@@ -16,6 +16,7 @@ def index():
         unsafe_allow_html=True
     )
     st.divider()
+    st.info('NOTE: The application currently supports news exclusively from The Times of India.', icon=':material/info:')
 
     with open('news_config.json') as file:
         news_data = json.load(file)
@@ -78,7 +79,7 @@ def index():
     )
     st.divider()
 
-    row = st.columns(3)
+    row = st.columns(2)
     grid = [col.container(height=560) for col in row]
 
     with grid[0]:
@@ -99,16 +100,6 @@ def index():
             'shivansh.karan@gmail.com',
             'https://github.com/SpaceTesla',
             'https://linkedin.com/in/shivansh-karan'
-        )
-
-    with grid[2]:
-        person_card(
-            'Hemamalini',
-            'assets/hemamalini.png',
-            'Backend Developer',
-            '1ds22cb091@dsce.edu.in',
-            'https://github.com/1DS22CS091hemamalini',
-            'https://linkedin.com/in/hemamalini-srinivas-191a96256'
         )
 
     st.markdown(

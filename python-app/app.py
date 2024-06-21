@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from scraper import scrape_url, scrape_archive
+from scraper import ndtv_archive, ndtv_url
 
 app = FastAPI()
 # Configure CORS
@@ -26,8 +26,8 @@ async def archive(request: Request) -> JSONResponse:
     formatted_date = f'{year}-{month}'
 
     url = f'https://archives.ndtv.com/articles/{formatted_date}.html'
-    data = await scrape_archive(url, topic, limit=500)
-    return JSONResponse(content={'content': data})
+    data = await ndtv_archive(url, topic, limit=100)
+    return JSONResponse(data)
 
 @app.post('/api/url')
 async def url(request: Request) -> JSONResponse:
@@ -36,8 +36,8 @@ async def url(request: Request) -> JSONResponse:
     if not url:
         raise HTTPException(status_code=400, detail='URL is missing')
 
-    data = await scrape_url(url)
-    return JSONResponse(content={'content': data})
+    data = await ndtv_url(url)
+    return JSONResponse(data)
 
 if __name__ == '__main__':
     uvicorn.run(app)

@@ -13,7 +13,7 @@ def analyse():
     )
     st.divider()
 
-    col1, col2, col3, col4 = st.columns([2, 2, 2, 2])
+    col1, col2, col3, col4 = st.columns(4)
 
     with col1:
         if 'article_url' in st.session_state:
@@ -22,16 +22,16 @@ def analyse():
             col1 = st.text_input('Published By', value='Unavailable')
 
     with col2:
-        if 'published_date' in st.session_state:
-            col2 = st.text_input('Published Date', value=st.session_state.published_date)
+        if 'author' in st.session_state:
+            col2 = st.text_input('Written By', value=st.session_state.author)
         else:
-            col2 = st.text_input('Published Date', value='Unavailable')
+            col2 = st.text_input('Written By', value='Unavailable')
 
     with col3:
-        if 'author' in st.session_state:
-            col3 = st.text_input('Written By', value=st.session_state.author)
+        if 'published_date' in st.session_state:
+            col3 = st.text_input('Published Date', value=st.session_state.published_date)
         else:
-            col3 = st.text_input('Written By', value='Unavailable')
+            col3 = st.text_input('Published Date', value='Unavailable')
 
     with col4:
         if 'edited_date' in st.session_state:
@@ -51,11 +51,16 @@ def analyse():
 
     st.divider()
 
-    row = st.columns([2, 2, 2])
+    row = st.columns(3)
     grid = [col.container(height=200) for col in row]
 
     with grid[0]:
         st.subheader('Article Analysis')
+        if 'article_category' in st.session_state:
+            st.write(f':green[Category]: {st.session_state.article_category}')
+        else:
+            st.write(':green[Category]: Unavailable')
+
         if 'article_highlight' in st.session_state:
             st.write(f':orange[Highlight]: {st.session_state.article_highlight}')
         else:

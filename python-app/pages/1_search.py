@@ -13,7 +13,7 @@ def search():
     )
     st.divider()
 
-    col1, col2, col3 = st.columns([2, 2, 2])
+    col1, col2, col3 = st.columns(3)
 
     with col1:
         if 'news_source' in st.session_state:
@@ -35,7 +35,7 @@ def search():
 
     st.divider()
 
-    row = st.columns([2, 2, 2])
+    row = st.columns(3)
     grid = [col.container(height=200) for col in row]
 
     with grid[0]:
