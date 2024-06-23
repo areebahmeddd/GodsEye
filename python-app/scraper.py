@@ -3,6 +3,8 @@ import re
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 
+from gemini import perspec
+
 async def ndtv_archive(url: str, topic: str, limit: int) -> list:
     try:
         async with httpx.AsyncClient() as client:
@@ -22,7 +24,7 @@ async def ndtv_archive(url: str, topic: str, limit: int) -> list:
             article_data = [
                 {
                     'id': i + 1,
-                    'text': (await ndtv_url(urlparse(link).geturl()))['summary'],
+                    'content': (await ndtv_url(urlparse(link).geturl()))['summary'],
                     'trending_highlights': None,
                     'trending_keywords': None,
                     'trending_organizations': None,
@@ -31,14 +33,15 @@ async def ndtv_archive(url: str, topic: str, limit: int) -> list:
                     'average_negative_percentage': None,
                     'total_articles': len(links),
                     'flagged_articles': None,
-                    'ai_generated_articles': None,
+                    'ai_generated_articles': None
                 }
                 for i, link in enumerate(list(set(filtered_links))[:limit])
             ]
 
-            return article_data
+            filtered_data = perspec(article_data)
+            return filtered_data
         else:
-            return [{'error': 'No archive body found.'}]
+            return [{'error': 'No archive body found'}]
 
     except httpx.RequestError as exc:
         return [{'error': f'Error occurred: {exc}'}]
@@ -63,13 +66,13 @@ async def ndtv_url(url: str) -> dict:
         article_body = soup.find('div', id='ins_storybody')
 
         raw_content = article_body.get_text(strip=True) if article_body else None
-        processed_content = re.sub(r'[^\x20-\x7E]', ' ', raw_content) if raw_content else None
+        filtered_content = re.sub(r'[^\x20-\x7E]', ' ', raw_content) if raw_content else None
 
-        return {
+        article_data = {
             'publisher': 'NDTV',
             'author': author,
             'publication_date': date,
-            'summary': processed_content,
+            'content': filtered_content,
             'authenticity': None,
             'category': None,
             'highlight': None,
@@ -86,6 +89,9 @@ async def ndtv_url(url: str) -> dict:
             'images': total_images,
             'videos': total_videos
         }
+
+        filtered_data = perspec(article_data)
+        return filtered_data
 
     except httpx.RequestError as exc:
         return {'error': f'Error occurred: {exc}'}

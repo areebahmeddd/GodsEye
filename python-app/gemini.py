@@ -14,10 +14,10 @@ generation_config = {
 }
 
 safety_settings = [
-    {'category': 'HARM_CATEGORY_HARASSMENT', 'threshold': 'BLOCK_MEDIUM_AND_ABOVE'},
-    {'category': 'HARM_CATEGORY_HATE_SPEECH', 'threshold': 'BLOCK_MEDIUM_AND_ABOVE'},
-    {'category': 'HARM_CATEGORY_SEXUALLY_EXPLICIT', 'threshold': 'BLOCK_MEDIUM_AND_ABOVE'},
-    {'category': 'HARM_CATEGORY_DANGEROUS_CONTENT', 'threshold': 'BLOCK_MEDIUM_AND_ABOVE'}
+    {'category': 'HARM_CATEGORY_HARASSMENT', 'threshold': 'BLOCK_NONE'},
+    {'category': 'HARM_CATEGORY_HATE_SPEECH', 'threshold': 'BLOCK_NONE'},
+    {'category': 'HARM_CATEGORY_SEXUALLY_EXPLICIT', 'threshold': 'BLOCK_NONE'},
+    {'category': 'HARM_CATEGORY_DANGEROUS_CONTENT', 'threshold': 'BLOCK_NONE'}
 ]
 
 with open('gemini_instructions.md', 'r') as file:
@@ -32,9 +32,9 @@ llm = GenerativeModel(
 
 chat_session = llm.start_chat(history=[])
 
-def lumi(news_data):
+def perspec(news_data):
     user_message = f'News Data: {news_data}'
     bot_response = chat_session.send_message(user_message)
 
-    filtered_response = bot_response.text.replace('```python', '').replace('```', '')
+    filtered_response = bot_response.text.replace('```json', '').replace('```', '')
     return eval(filtered_response)

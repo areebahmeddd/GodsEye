@@ -45,9 +45,9 @@ def analyse():
         st.text_area('Article Summary', value='Unavailable', height=100, help='Powered by Gemini')
 
     if 'article_authenticity' in st.session_state:
-        st.text_area('Verification & Credibility Check', value=st.session_state.article_authenticity, height=200, help='Powered by Gemini')
+        st.text_area('Article Authenticity', value=st.session_state.article_authenticity, height=200, help='Powered by Gemini')
     else:
-        st.text_area('Verification & Credibility Check', value='Unavailable', height=100, help='Powered by Gemini')
+        st.text_area('Article Authenticity', value='Unavailable', height=100, help='Powered by Gemini')
 
     st.divider()
 

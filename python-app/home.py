@@ -16,7 +16,7 @@ def index():
         unsafe_allow_html=True
     )
     st.divider()
-    st.info('NOTE: The application currently supports news exclusively from The Times of India.', icon=':material/info:')
+    st.info('NOTE: The application is currently in alpha phase. Some features are limited and undergoing development.', icon=':material/info:')
 
     with open('news_config.json') as file:
         news_data = json.load(file)
