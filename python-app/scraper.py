@@ -24,7 +24,7 @@ async def ndtv_archive(url: str, topic: str, limit: int) -> list:
             article_data = [
                 {
                     'id': i + 1,
-                    'content': (await ndtv_url(urlparse(link).geturl()))['summary'],
+                    'content': (await ndtv_url(urlparse(link).geturl()))['content'],
                     'trending_highlights': None,
                     'trending_keywords': None,
                     'trending_organizations': None,
@@ -36,6 +36,7 @@ async def ndtv_archive(url: str, topic: str, limit: int) -> list:
                     'ai_generated_articles': None
                 }
                 for i, link in enumerate(list(set(filtered_links))[:limit])
+                # if print(f'[{i + 1}/{limit}] {link}')
             ]
 
             filtered_data = perspec(article_data)
@@ -66,7 +67,7 @@ async def ndtv_url(url: str) -> dict:
         article_body = soup.find('div', id='ins_storybody')
 
         raw_content = article_body.get_text(strip=True) if article_body else None
-        filtered_content = re.sub(r'[^\x20-\x7E]', ' ', raw_content) if raw_content else None
+        filtered_content = re.sub(r'[^\x20-\x7E]', '', raw_content) if raw_content else None
 
         article_data = {
             'publisher': 'NDTV',

@@ -60,7 +60,6 @@ def send_mail(name, email, message):
         server.sendmail(from_addr=ADMIN_EMAIL, to_addrs=email, msg=full_message)
         server.sendmail(from_addr=ADMIN_EMAIL, to_addrs='areebahmed0709@gmail.com', msg=full_message)
         server.quit()
-
         return 'Email sent successfully'
 
     except Exception as exc:

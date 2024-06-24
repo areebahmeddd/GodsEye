@@ -1,3 +1,4 @@
+import json
 import google.generativeai as genai
 from google.generativeai import GenerativeModel
 
@@ -37,4 +38,4 @@ def perspec(news_data):
     bot_response = chat_session.send_message(user_message)
 
     filtered_response = bot_response.text.replace('```json', '').replace('```', '')
-    return eval(filtered_response)
+    return json.loads(filtered_response)

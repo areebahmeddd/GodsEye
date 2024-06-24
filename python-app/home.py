@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 import json
 from datetime import datetime
+
 from utils import custom_css, person_card
 
 def index():
@@ -71,7 +72,7 @@ def index():
     )
     st.divider()
 
-    st.video('https://www.youtube.com/watch?v=D0D4Pa22iG0')
+    st.video('https://youtube.com/watch?v=GFApJyF8yc0')
 
     st.markdown(
         "<h1 style='text-align: center;'>Team</h1>",
