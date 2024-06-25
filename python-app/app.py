@@ -21,8 +21,8 @@ async def archive(request: Request) -> JSONResponse:
     source = request_body.get('source')
     date = request_body.get('date')
     topic = request_body.get('topic')
-    if not date or not topic:
-        raise HTTPException(status_code=400, detail='Date and topic is missing')
+    if not source or not date or not topic:
+        raise HTTPException(status_code=400, detail='Source, date, or topic is missing')
 
     day, month, year = date.split('-')
     formatted_date = f'{year}-{month}'

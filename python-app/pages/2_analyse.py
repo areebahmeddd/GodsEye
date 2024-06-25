@@ -1,3 +1,4 @@
+import json
 import streamlit as st
 
 def analyse():
@@ -16,38 +17,21 @@ def analyse():
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
-        if 'article_url' in st.session_state:
-            col1 = st.text_input('Published By', value=st.session_state.article_url)
-        else:
-            col1 = st.text_input('Published By', value='Unavailable')
+        col1 = st.text_input('Published By', value=st.session_state.get('publisher', 'Unavailable'))
 
     with col2:
-        if 'author' in st.session_state:
-            col2 = st.text_input('Written By', value=st.session_state.author)
-        else:
-            col2 = st.text_input('Written By', value='Unavailable')
+        col2 = st.text_input('Written By', value=st.session_state.get('author', 'Unavailable'))
 
     with col3:
-        if 'published_date' in st.session_state:
-            col3 = st.text_input('Published Date', value=st.session_state.published_date)
-        else:
-            col3 = st.text_input('Published Date', value='Unavailable')
+        col3 = st.text_input('Published Date', value=st.session_state.get('publication_date', 'Unavailable'))
 
     with col4:
-        if 'edited_date' in st.session_state:
-            col4 = st.text_input('Last Edited', value=st.session_state.edited_date)
-        else:
-            col4 = st.text_input('Last Edited', value='Unavailable')
+        col4 = st.text_input('Last Edited', value=st.session_state.get('edited_date', 'Unavailable'))
 
-    if 'article_summary' in st.session_state:
-        st.text_area('Article Summary', value=st.session_state.article_summary, height=100, help='Powered by Gemini')
-    else:
-        st.text_area('Article Summary', value='Unavailable', height=100, help='Powered by Gemini')
+    st.text_area('Article Summary', value=st.session_state.get('content', 'Unavailable'), height=150, help='Powered by Gemini')
 
-    if 'article_authenticity' in st.session_state:
-        st.text_area('Article Authenticity', value=st.session_state.article_authenticity, height=200, help='Powered by Gemini')
-    else:
-        st.text_area('Article Authenticity', value='Unavailable', height=100, help='Powered by Gemini')
+    authenticity = st.session_state.get('authenticity', 'Unavailable')
+    st.text_area('Article Authenticity', value=json.dumps(authenticity, indent=4), height=200, help='Powered by Gemini')
 
     st.divider()
 
@@ -56,64 +40,31 @@ def analyse():
 
     with grid[0]:
         st.subheader('Article Analysis')
-        if 'article_category' in st.session_state:
-            st.write(f':green[Category]: {st.session_state.article_category}')
-        else:
-            st.write(':green[Category]: Unavailable')
-
-        if 'article_highlight' in st.session_state:
-            st.write(f':orange[Highlight]: {st.session_state.article_highlight}')
-        else:
-            st.write(':orange[Highlight]: Unavailable')
-
-        if 'article_organization' in st.session_state:
-            st.write(f':blue[Organization]: {st.session_state.article_organization}')
-        else:
-            st.write(':blue[Organization]: Unavailable')
+        st.write(f':green[Category]: {st.session_state.get("category", "Unavailable")}')
+        st.write(f':orange[Highlight]: {st.session_state.get("highlight", "Unavailable")}')
+        st.write(f':blue[Organization]: {st.session_state.get("organization", "Unavailable")}')
 
     with grid[1]:
         st.subheader('Sentiment Analysis')
-        if 'article_positivity' in st.session_state:
-            st.write(f':green[Positive]: {st.session_state.article_positivity}')
-        else:
-            st.write(':green[Positive]: Unavailable')
+        st.write(f':green[Positive]: {st.session_state.get("positive_percentage", "Unavailable")}')
+        with st.expander('Positive Text'):
+            st.write(st.session_state.get('positive_text', 'Unavailable'))
 
-        if 'article_neutrality' in st.session_state:
-            st.write(f':grey[Neutral]: {st.session_state.article_neutrality}')
-        else:
-            st.write(':grey[Neutral]: Unavailable')
+        st.write(f':grey[Neutral]: {st.session_state.get("neutral_percentage", "Unavailable")}')
+        with st.expander('Neutral Text'):
+            st.write(st.session_state.get('neutral_text', 'Unavailable'))
 
-        if 'article_negativity' in st.session_state:
-            st.write(f':red[Negative]: {st.session_state.article_negativity}')
-        else:
-            st.write(':red[Negative]: Unavailable')
+        st.write(f':red[Negative]: {st.session_state.get("negative_percentage", "Unavailable")}')
+        with st.expander('Negative Text'):
+            st.write(st.session_state.get('negative_text', 'Unavailable'))
 
     with grid[2]:
         st.subheader('Media Analysis')
-        if 'article_language' in st.session_state:
-            st.write(f':green[Language]: {st.session_state.article_language}')
-        else:
-            st.write(':green[Language]: Unavailable')
-
-        if 'read_time' in st.session_state:
-            st.write(f':red[Read Time]: {st.session_state.read_time}')
-        else:
-            st.write(':red[Read Time]: Unavailable')
-
-        if 'article_links' in st.session_state:
-            st.write(f':violet[Links]: {st.session_state.article_links}')
-        else:
-            st.write(':violet[Links]: Unavailable')
-
-        if 'article_images' in st.session_state:
-            st.write(f':orange[Images]: {st.session_state.article_images}')
-        else:
-            st.write(':orange[Images]: Unavailable')
-
-        if 'article_videos' in st.session_state:
-            st.write(f':blue[Videos]: {st.session_state.article_videos}')
-        else:
-            st.write(':blue[Videos]: Unavailable')
+        st.write(f':green[Language]: {st.session_state.get("language", "Unavailable")}')
+        st.write(f':red[Read Time]: {st.session_state.get("read_time", "Unavailable")}')
+        st.write(f':violet[Links]: {st.session_state.get("links", "Unavailable")}')
+        st.write(f':orange[Images]: {st.session_state.get("images", "Unavailable")}')
+        st.write(f':blue[Videos]: {st.session_state.get("videos", "Unavailable")}')
 
     st.divider()
 
@@ -125,5 +76,9 @@ def analyse():
         """,
         unsafe_allow_html=True
     )
+
+required_keys = ['publisher', 'author', 'publication_date', 'edited_date']
+if any(key not in st.session_state for key in required_keys):
+    st.switch_page('home.py')
 
 analyse()

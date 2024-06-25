@@ -73,6 +73,7 @@ async def ndtv_url(url: str) -> dict:
             'publisher': 'NDTV',
             'author': author,
             'publication_date': date,
+            'edited_date': date,
             'content': filtered_content,
             'authenticity': None,
             'category': None,

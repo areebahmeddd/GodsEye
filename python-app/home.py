@@ -46,6 +46,7 @@ def index():
                 }
             )
             if api_response.status_code == 200:
+                st.session_state.search_results = api_response.json()
                 st.switch_page('pages/1_search.py')
             else:
                 st.error('Error occurred while processing the news articles', icon=':material/error:')
@@ -66,6 +67,7 @@ def index():
                 json={'url': st.session_state.article_url}
             )
             if api_response.status_code == 200:
+                st.session_state.update(api_response.json())
                 st.switch_page('pages/2_analyse.py')
             else:
                 st.error('Error occurred while processing the article', icon=':material/error:')

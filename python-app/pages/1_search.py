@@ -35,59 +35,37 @@ def search():
 
     st.divider()
 
-    row = st.columns(3)
-    grid = [col.container(height=200) for col in row]
+    if 'search_results' in st.session_state:
+        search_results = st.session_state.search_results
+        result = search_results[0]
 
-    with grid[0]:
-        st.subheader('Article Analysis')
-        if 'trending_highlight' in st.session_state:
-            st.write(f'Trending :orange[Highlights]: {st.session_state.trending_highlight}')
-        else:
-            st.write('Trending :orange[Highlights]: Unavailable')
+        row = st.columns(3)
+        grid = [col.container(height=200) for col in row]
 
-        if 'article_keyword' in st.session_state:
-            st.write(f'Trending :violet[Keywords]: {st.session_state.article_keyword}')
-        else:
-            st.write('Trending :violet[Keywords]: Unavailable')
+        with grid[0]:
+            st.subheader('Article Analysis')
+            with st.expander('Trending Highlights'):
+                st.write(result.get('trending_highlights', ['Unavailable']))
 
-        if 'trending_organization' in st.session_state:
-            st.write(f'Trending :blue[Organizations]: {st.session_state.trending_organization}')
-        else:
-            st.write('Trending :blue[Organizations]: Unavailable')
+            with st.expander('Trending Keywords'):
+                st.write(result.get('trending_keywords', ['Unavailable']))
 
-    with grid[1]:
-        st.subheader('Sentiment Analysis')
-        if 'average_positivity' in st.session_state:
-            st.write(f'Average :green[Positivity]: {st.session_state.average_positivity}')
-        else:
-            st.write('Average :green[Positivity]: Unavailable')
+            with st.expander('Trending Organizations'):
+                st.write(result.get('trending_organizations', ['Unavailable']))
 
-        if 'average_neutrality' in st.session_state:
-            st.write(f'Average :grey[Neutrality]: {st.session_state.average_neutrality}')
-        else:
-            st.write('Average :grey[Neutrality]: Unavailable')
+        with grid[1]:
+            st.subheader('Sentiment Analysis')
+            st.write(f'Average :green[Positivity]: {result.get("average_positive_percentage", "Unavailable")}')
+            st.write(f'Average :grey[Neutrality]: {result.get("average_neutral_percentage", "Unavailable")}')
+            st.write(f'Average :red[Negativity]: {result.get("average_negative_percentage", "Unavailable")}')
 
-        if 'average_negativity' in st.session_state:
-            st.write(f'Average :red[Negativity]: {st.session_state.average_negativity}')
-        else:
-            st.write('Average :red[Negativity]: Unavailable')
-
-    with grid[2]:
-        st.subheader('Media Analysis')
-        if 'total_article' in st.session_state:
-            st.write(f':orange[Total] Articles: {st.session_state.total_article}')
-        else:
-            st.write(':orange[Total] Articles: Unavailable')
-
-        if 'flagged_article' in st.session_state:
-            st.write(f':red[Flagged] Articles: {st.session_state.flagged_article}')
-        else:
-            st.write(':red[Flagged] Articles: Unavailable')
-
-        if 'ai_content' in st.session_state:
-            st.write(f':green[AI Generated] Content: {st.session_state.ai_content}')
-        else:
-            st.write(':green[AI Generated] Content: Unavailable')
+        with grid[2]:
+            st.subheader('Media Analysis')
+            st.write(f':orange[Total] Articles: {result.get("total_articles", "Unavailable")}')
+            st.write(f':red[Flagged] Articles: {result.get("flagged_articles", "Unavailable")}')
+            st.write(f':green[AI Generated] Content: {result.get("ai_generated_articles", "Unavailable")}')
+    else:
+        st.write('No search results available')
 
     st.divider()
 
@@ -99,5 +77,8 @@ def search():
         """,
         unsafe_allow_html=True
     )
+
+if 'search_results' not in st.session_state:
+    st.switch_page('home.py')
 
 search()

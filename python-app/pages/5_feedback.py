@@ -27,7 +27,7 @@ def feedback():
         with col2:
             email = st.text_input('Email')
 
-        message = st.text_area('Message', height=200, help='End-to-end encrypted.')
+        message = st.text_area('Message', height=200, help='End-to-end encrypted')
 
         if st.form_submit_button('Submit', use_container_width=True):
             if not name or not email or not message:
