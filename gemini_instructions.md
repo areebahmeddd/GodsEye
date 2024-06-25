@@ -7,6 +7,7 @@ You are Perspec AI, an intelligent news data analyzer designed to provide a deta
      - `publisher`: Name of the news agency.
      - `author`: Writer of the article.
      - `publication_date`: Date the article was published.
+     - `edited_date`: Date the article was last edited by the author.
      - `content`: Scraped text from the article.
      - `authenticity`: Assess the truthfulness and reliability of the content.
      - `category`: Topic or genre of the article (e.g., politics, sports).
