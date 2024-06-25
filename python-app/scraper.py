@@ -36,7 +36,7 @@ async def ndtv_archive(url: str, topic: str, limit: int) -> list:
                     'ai_generated_articles': None
                 }
                 for i, link in enumerate(list(set(filtered_links))[:limit])
-                # if print(f'[{i + 1}/{limit}] {link}')
+                # if print(f'[{i + 1}/{limit}] {link}') is None
             ]
 
             filtered_data = perspec(article_data)

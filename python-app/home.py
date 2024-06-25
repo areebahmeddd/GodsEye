@@ -39,7 +39,11 @@ def index():
         else:
             api_response = requests.post(
                 'http://localhost:8000/api/archive',
-                json={'date': st.session_state.news_date.strftime('%d-%m-%Y'), 'topic': st.session_state.news_topic}
+                json={
+                    'source': st.session_state.news_source,
+                    'date': st.session_state.news_date.strftime('%d-%m-%Y'),
+                    'topic': st.session_state.news_topic
+                }
             )
             if api_response.status_code == 200:
                 st.switch_page('pages/1_search.py')

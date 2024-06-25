@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from scraper import ndtv_archive, ndtv_url
+from database import database_history
 
 app = FastAPI()
 # Configure CORS
@@ -17,6 +18,7 @@ app.add_middleware(
 @app.post('/api/archive')
 async def archive(request: Request) -> JSONResponse:
     request_body = await request.json()
+    source = request_body.get('source')
     date = request_body.get('date')
     topic = request_body.get('topic')
     if not date or not topic:
@@ -27,6 +29,9 @@ async def archive(request: Request) -> JSONResponse:
 
     url = f'https://archives.ndtv.com/articles/{formatted_date}.html'
     data = await ndtv_archive(url, topic, limit=100)
+
+    # document_name = f'{source}-{formatted_date}'
+    # database_history(document_name, data)
     return JSONResponse(data)
 
 @app.post('/api/url')
