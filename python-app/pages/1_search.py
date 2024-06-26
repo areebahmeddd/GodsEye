@@ -39,7 +39,7 @@ def search():
         search_results = st.session_state.search_results
         result = search_results[0]
 
-        row = st.columns(3)
+        row = st.columns(3, gap='medium')
         grid = [col.container(height=200) for col in row]
 
         with grid[0]:
@@ -78,7 +78,7 @@ def search():
         unsafe_allow_html=True
     )
 
-if 'search_results' not in st.session_state:
+if 'search_results' in st.session_state:
+    search()
+else:
     st.switch_page('home.py')
-
-search()

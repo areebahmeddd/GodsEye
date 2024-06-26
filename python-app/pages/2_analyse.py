@@ -1,5 +1,6 @@
 import json
 import streamlit as st
+import plotly.express as px
 
 def analyse():
     st.set_page_config(
@@ -35,7 +36,7 @@ def analyse():
 
     st.divider()
 
-    row = st.columns(3)
+    row = st.columns(3, gap='medium')
     grid = [col.container(height=200) for col in row]
 
     with grid[0]:
@@ -62,11 +63,22 @@ def analyse():
         st.subheader('Media Analysis')
         st.write(f':green[Language]: {st.session_state.get("language", "Unavailable")}')
         st.write(f':red[Read Time]: {st.session_state.get("read_time", "Unavailable")}')
-        st.write(f':violet[Links]: {st.session_state.get("links", "Unavailable")}')
+        st.write(f':violet[Ads]: {st.session_state.get("ads", "Unavailable")}')
+        st.write(f':blue[Links]: {st.session_state.get("links", "Unavailable")}')
         st.write(f':orange[Images]: {st.session_state.get("images", "Unavailable")}')
-        st.write(f':blue[Videos]: {st.session_state.get("videos", "Unavailable")}')
+        st.write(f':grey[Videos]: {st.session_state.get("videos", "Unavailable")}')
+        st.write(f':green[Documents]: {st.session_state.get("documents", "Unavailable")}')
 
     st.divider()
+
+    row = st.columns(2)
+    grid = [col.container(height=500) for col in row]
+
+    with grid[0]:
+        sentiment_analysis_chart()
+
+    with grid[1]:
+        media_analysis_chart()
 
     st.markdown(
         """
@@ -77,8 +89,48 @@ def analyse():
         unsafe_allow_html=True
     )
 
-required_keys = ['publisher', 'author', 'publication_date', 'edited_date']
-if any(key not in st.session_state for key in required_keys):
-    st.switch_page('home.py')
+def sentiment_analysis_chart():
+    labels = ['Positive', 'Neutral', 'Negative']
+    values = [
+        float(st.session_state.get('positive_percentage', '0%').strip('%')),
+        float(st.session_state.get('neutral_percentage', '0%').strip('%')),
+        float(st.session_state.get('negative_percentage', '0%').strip('%'))
+    ]
+    colors = ['#3CB371', '#808080', '#FF6347']
 
-analyse()
+    figure = px.pie(
+        title='Sentiment Analysis',
+        names=labels,
+        values=values,
+        color_discrete_sequence=colors
+    )
+    st.plotly_chart(figure, use_container_width=True)
+
+def media_analysis_chart():
+    labels = ['Ads', 'Links', 'Images', 'Videos', 'Documents']
+    counts = [
+        st.session_state.get('ads', 0),
+        st.session_state.get('links', 0),
+        st.session_state.get('images', 0),
+        st.session_state.get('videos', 0),
+        st.session_state.get('documents', 0)
+    ]
+    colors = ['#FF6347', '#1E90FF', '#FFA500', '#8A2BE2', '#3CB371']
+
+    figure = px.bar(
+        title='Media Analysis',
+        x=counts,
+        y=labels,
+        orientation='h',
+        labels={'x': 'Count', 'y': 'Formats'},
+        color=labels,
+        color_discrete_sequence=colors,
+        text=counts
+    )
+    st.plotly_chart(figure, use_container_width=True)
+
+required_keys = ['publisher', 'author', 'publication_date', 'edited_date']
+if all(key in st.session_state for key in required_keys):
+    analyse()
+else:
+    st.switch_page('home.py')

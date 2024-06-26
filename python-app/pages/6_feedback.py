@@ -1,5 +1,5 @@
-import streamlit as st
 import smtplib
+import streamlit as st
 
 from config import ADMIN_EMAIL, ADMIN_PASSWORD
 
@@ -28,7 +28,6 @@ def feedback():
             email = st.text_input('Email')
 
         message = st.text_area('Message', height=200, help='End-to-end encrypted')
-
         if st.form_submit_button('Submit', use_container_width=True):
             if not name or not email or not message:
                 st.warning('Please fill in all the fields', icon=':material/warning:')

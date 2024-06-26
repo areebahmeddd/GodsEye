@@ -1,6 +1,6 @@
-import streamlit as st
 import requests
 import json
+import streamlit as st
 from datetime import datetime
 
 from utils import custom_css, person_card
@@ -57,7 +57,6 @@ def index():
     )
 
     st.session_state.article_url = st.text_input('Article URL')
-
     if st.button('Analyse', use_container_width=True):
         if not st.session_state.article_url:
             st.warning('Please enter the article URL', icon=':material/warning:')
@@ -70,7 +69,28 @@ def index():
                 st.session_state.update(api_response.json())
                 st.switch_page('pages/2_analyse.py')
             else:
-                st.error('Error occurred while processing the article', icon=':material/error:')
+                st.error('Error occurred while processing the news article', icon=':material/error:')
+
+    st.markdown(
+        "<p style='text-align: center;'>───── Or ─────</p>",
+        unsafe_allow_html=True
+    )
+
+    st.session_state.article_pdf = st.file_uploader('Article PDF')
+    if st.button('Scan', use_container_width=True):
+        st.warning('This feature is currently under development', icon=':material/warning:')
+        # if not st.session_state.article_pdf:
+        #     st.warning('Please upload the article PDF', icon=':material/warning:')
+        # else:
+        #     api_response = requests.post(
+        #         'http://localhost:8000/api/pdf',
+        #         files={'pdf': st.session_state.article_pdf}
+        #     )
+        #     if api_response.status_code == 200:
+        #         st.session_state.update(api_response.json())
+        #         st.switch_page('pages/3_scan.py')
+        #     else:
+        #         st.error('Error occurred while processing the news pdf', icon=':material/error:')
 
     st.markdown(
         "<h1 style='text-align: center;'>Project Demo</h1>",

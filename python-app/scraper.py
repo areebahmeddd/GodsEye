@@ -61,9 +61,11 @@ async def ndtv_url(url: str) -> dict:
         # category_element = soup.find('a', class_='pst-by_lnk')
         # category = category_element.text.strip() if category_element else None
 
+        total_ads = len(soup.find_all('a', href=lambda x: x and 'adclick' in x))
         total_links = len(soup.find_all('a', href=True))
         total_images = len(soup.find_all('img'))
         total_videos = len(soup.find_all('video'))
+        total_documents = len(soup.find_all('iframe'))
         article_body = soup.find('div', id='ins_storybody')
 
         raw_content = article_body.get_text(strip=True) if article_body else None
@@ -87,9 +89,11 @@ async def ndtv_url(url: str) -> dict:
             'negative_text': None,
             'language': None,
             'read_time': None,
+            'ads': total_ads,
             'links': total_links,
             'images': total_images,
-            'videos': total_videos
+            'videos': total_videos,
+            'documents': total_documents
         }
 
         filtered_data = perspec(article_data)
