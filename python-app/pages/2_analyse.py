@@ -1,6 +1,7 @@
 import json
 import streamlit as st
-import plotly.express as px
+
+from graphs import *
 
 def analyse():
     st.set_page_config(
@@ -92,42 +93,20 @@ def analyse():
 def sentiment_analysis_chart():
     labels = ['Positive', 'Neutral', 'Negative']
     values = [
-        float(st.session_state.get('positive_percentage', '0%').strip('%')),
-        float(st.session_state.get('neutral_percentage', '0%').strip('%')),
-        float(st.session_state.get('negative_percentage', '0%').strip('%'))
+        float(st.session_state.get(f'{sentiment.lower()}_percentage', '0%').strip('%'))
+        for sentiment in labels
     ]
     colors = ['#3CB371', '#808080', '#FF6347']
-
-    figure = px.pie(
-        title='Sentiment Analysis',
-        names=labels,
-        values=values,
-        color_discrete_sequence=colors
-    )
-    st.plotly_chart(figure, use_container_width=True)
+    pie_chart('Sentiment Analysis', labels, values, colors)
 
 def media_analysis_chart():
     labels = ['Ads', 'Links', 'Images', 'Videos', 'Documents']
     counts = [
-        st.session_state.get('ads', 0),
-        st.session_state.get('links', 0),
-        st.session_state.get('images', 0),
-        st.session_state.get('videos', 0),
-        st.session_state.get('documents', 0)
+        st.session_state.get(label.lower(), 0)
+        for label in labels
     ]
     colors = ['#FF6347', '#1E90FF', '#FFA500', '#8A2BE2', '#3CB371']
-
-    figure = px.bar(
-        title='Media Analysis',
-        x=counts,
-        y=labels,
-        orientation='h',
-        labels={'x': 'Count', 'y': 'Formats'},
-        color=labels,
-        color_discrete_sequence=colors,
-        text=counts
-    )
-    st.plotly_chart(figure, use_container_width=True)
+    horizontal_bar_chart('Media Analysis', counts, labels, 'Count', 'Media', colors)
 
 required_keys = ['publisher', 'author', 'publication_date', 'edited_date']
 if all(key in st.session_state for key in required_keys):

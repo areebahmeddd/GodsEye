@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from scraper import ndtv_archive, ndtv_url
-from database import database_history
+# from database import database_history
 
 app = FastAPI()
 # Configure CORS

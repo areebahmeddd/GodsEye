@@ -5,7 +5,7 @@ from datetime import datetime
 
 from utils import custom_css, person_card
 
-def index():
+def home():
     st.set_page_config(
         page_title='Gods Eye',
         page_icon='assets/favicon.png',
@@ -37,6 +37,7 @@ def index():
         if not st.session_state.news_source or not st.session_state.news_topic:
             st.warning('Please select the news source and topic', icon=':material/warning:')
         else:
+            st.warning('Please wait up to 30 seconds for the results to load', icon=':material/info:')
             api_response = requests.post(
                 'http://localhost:8000/api/archive',
                 json={
@@ -61,6 +62,7 @@ def index():
         if not st.session_state.article_url:
             st.warning('Please enter the article URL', icon=':material/warning:')
         else:
+            st.warning('Please wait up to 30 seconds for the results to load', icon=':material/info:')
             api_response = requests.post(
                 'http://localhost:8000/api/url',
                 json={'url': st.session_state.article_url}
@@ -82,6 +84,7 @@ def index():
         # if not st.session_state.article_pdf:
         #     st.warning('Please upload the article PDF', icon=':material/warning:')
         # else:
+        #     st.warning('Please wait up to 30 seconds for the results to load', icon=':material/info:')
         #     api_response = requests.post(
         #         'http://localhost:8000/api/pdf',
         #         files={'pdf': st.session_state.article_pdf}
@@ -107,7 +110,7 @@ def index():
     st.divider()
 
     row = st.columns(2)
-    grid = [col.container(height=560) for col in row]
+    grid = [col.container(height=580) for col in row]
 
     with grid[0]:
         person_card(
@@ -140,4 +143,4 @@ def index():
         unsafe_allow_html=True
     )
 
-index()
+home()
