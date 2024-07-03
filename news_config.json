@@ -2,14 +2,14 @@
     "news_sources": [
         "China Daily",
         "Metro",
+        "New Delhi Television Limited",
         "O Globo",
+        "Russia Today",
+        "Saudi Gazette",
         "The Canberra Times",
         "The Japan Times",
         "The New York Times",
-        "Russia Today",
-        "Saudi Gazette",
-        "The Sunday Times",
-        "The Times of India"
+        "The Sunday Times"
     ],
     "news_topics": [
         "Business",
