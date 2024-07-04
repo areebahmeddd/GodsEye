@@ -28,7 +28,7 @@ async def archive(request: Request) -> JSONResponse:
     formatted_date = f'{year}-{month}'
 
     url = f'https://archives.ndtv.com/articles/{formatted_date}.html'
-    data = await ndtv_archive(url, topic, limit=100)
+    data = await ndtv_archive(url, topic, limit=3)
 
     # document_name = f'{source}-{formatted_date}'
     # database_history(document_name, data)
