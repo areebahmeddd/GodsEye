@@ -1,6 +1,8 @@
+# Core library imports: Streamlit setup
 import streamlit as st
 
-def custom_css():
+# Function to apply custom CSS styles to the Streamlit app
+def custom_css() -> None:
     st.markdown(
         """
         <style>
@@ -17,7 +19,8 @@ def custom_css():
         unsafe_allow_html=True
     )
 
-def person_card(name, image_path, role, email, github_link, linkedin_link):
+# Function to create a person card component with name, image, role, email, GitHub, and LinkedIn links
+def person_card(name, image_path, role, email, github_link, linkedin_link) -> None:
     custom_css()
     st.image(image_path, use_column_width=True)
     st.markdown(

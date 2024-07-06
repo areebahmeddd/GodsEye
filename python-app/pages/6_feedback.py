@@ -1,7 +1,9 @@
+# Core library imports: Streamlit setup and email functionality
 import smtplib
 import streamlit as st
 
-def feedback():
+def feedback() -> None:
+    # Configure Streamlit page settings
     st.set_page_config(
         page_title='Gods Eye - Feedback',
         page_icon='assets/favicon.png',
@@ -14,17 +16,21 @@ def feedback():
     )
     st.divider()
 
+    # Create a form for users to submit feedback
     with st.form('contact_form'):
         st.subheader("📬Let's get in touch!")
 
+        # Create 2-column layout
         col1, col2 = st.columns(2)
 
+        # Create text input fields for name and email
         with col1:
             name = st.text_input('Name')
 
         with col2:
             email = st.text_input('Email')
 
+        # Create a text area for the message and a submit button
         message = st.text_area('Message', height=200, help='End-to-end encrypted')
         if st.form_submit_button('Submit', use_container_width=True):
             if not name or not email or not message:
@@ -45,15 +51,18 @@ def feedback():
         unsafe_allow_html=True
     )
 
-def send_mail(name, email, message):
+def send_mail(name, email, message) -> str:
+    # Load admin email and password from Streamlit secrets.toml
     ADMIN_EMAIL = st.secrets["admin"]["email"]
-    ADMIN_PASSWORD = st.secrets["admin"]["password"]
+    ADMIN_PASSWORD = st.secrets["admin"]["app_pass"]
 
+    # Construct the email subject and body
     subject = 'GodsEye Feedback Team'
     body = f'Hey {name}, Thank you for your feedback!\n\nHere is a copy of your message:\n\n{message}'
     full_message = f'Subject: {subject}\n\n{body}'
 
     try:
+        # Send the email using the Gmail SMTP server
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
         server.login(user=ADMIN_EMAIL, password=ADMIN_PASSWORD)

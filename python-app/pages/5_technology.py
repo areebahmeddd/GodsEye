@@ -1,6 +1,8 @@
+# Core library imports: Streamlit setup
 import streamlit as st
 
-def technology():
+def technology() -> None:
+    # Configure Streamlit page settings
     st.set_page_config(
         page_title='Gods Eye - Overview',
         page_icon='assets/favicon.png',
@@ -13,6 +15,7 @@ def technology():
     )
     st.divider()
 
+    # Display the project logo and system architecture
     # st.image('assets/logo.png', use_column_width=True)
     st.markdown(
         """
