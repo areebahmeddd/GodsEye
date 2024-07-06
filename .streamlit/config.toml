@@ -4,8 +4,6 @@ primaryColor = "#5588ff"
 font = "monospace"
 
 [browser]
-serverAddress = "localhost"
-serverPort = 8501
 gatherUsageStats = false
 
 [server]
