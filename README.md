@@ -101,7 +101,7 @@ Follow these steps to set up and run the GodsEye software on your local machine,
 
     - Select and open any article. The browser extension will be displayed on the right side of the screen. Click on the extension icon to access detailed information.
 
-3. For Developers:
+3. For Contributors:
     - To apply changes made to the browser extension, visit `chrome://extensions`, click the "Update" button at the top left, and reload the article page to see the updates.
 
 ## License
