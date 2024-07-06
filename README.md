@@ -88,12 +88,9 @@ Follow these steps to set up and run the GodsEye software on your local machine,
 
 ## Usage
 
-1. Run the application and start the development server:
+1. Launch the application by clicking the run button in the top right of VS Code, or execute:
     ```shell
     python python-app/app.py
-    ```
-    ```shell
-    streamlit run python-app/home.py
     ```
 
 2. Using the Browser Extension:

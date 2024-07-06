@@ -1,4 +1,5 @@
 import uvicorn
+import subprocess
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -45,4 +46,13 @@ async def url(request: Request) -> JSONResponse:
     return JSONResponse(data)
 
 if __name__ == '__main__':
-    uvicorn.run(app)
+    # Start the Streamlit app in a separate process
+    streamlit_process = subprocess.Popen('streamlit run python-app/home.py', shell=True)
+
+    # Start the FastAPI server
+    try:
+        uvicorn.run(app)
+    except:
+        # Ensure the Streamlit process is terminated if FastAPI server fails to start
+        streamlit_process.terminate()
+        streamlit_process.wait()
