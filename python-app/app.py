@@ -35,7 +35,7 @@ async def archive(request: Request) -> JSONResponse:
 
     # Construct URL using formatted date and scrape NDTV archives for the specified topic
     url = f'https://archives.ndtv.com/articles/{formatted_date}.html'
-    data = await ndtv_archive(url, topic, limit=5) # Limit set to 3 due to Gemini API and scraping limitations
+    data = await ndtv_archive(url, topic, limit=3) # Limit set to 3 due to Gemini API and scraping limitations
 
     # document_name = f'{source}-{formatted_date}'
     # database_history(document_name, data)
