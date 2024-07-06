@@ -96,6 +96,14 @@ Follow these steps to set up and run the GodsEye software on your local machine,
     streamlit run python-app/home.py
     ```
 
+2. Using the Browser Extension:
+    - Navigate to any of the following supported websites:
+      - https://www.ndtv.com
+
+      **NOTE**: The subdomain https://www.ndtvprofit.com is currently unsupported due to a different HTML structure.
+
+    - Select and open any article. The browser extension will be displayed on the right side of the screen. Click on the extension icon to access detailed information.
+
 ## License
 
 This project is licensed under the [Apache License 2.0](https://github.com/areebahmeddd/GodsEye/blob/main/LICENSE).
