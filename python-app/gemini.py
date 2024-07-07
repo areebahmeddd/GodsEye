@@ -4,6 +4,7 @@ import google.generativeai as genai
 from google.generativeai import GenerativeModel
 from typing import Dict, Any
 
+# Local project-specific imports: Gemini API key from .env
 from config import GEMINI_API_KEY
 
 # Load Gemini API key from Streamlit secrets.toml

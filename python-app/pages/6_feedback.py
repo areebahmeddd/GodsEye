@@ -2,6 +2,7 @@
 import smtplib
 import streamlit as st
 
+# Local project-specific imports: admin email and password from .env
 from config import ADMIN_EMAIL, ADMIN_PASSWORD
 
 def feedback() -> None:
