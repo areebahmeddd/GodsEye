@@ -5,6 +5,9 @@ from google.generativeai import GenerativeModel
 from typing import Dict, Any
 
 from config import GEMINI_API_KEY
+
+# Load Gemini API key from Streamlit secrets.toml
+# GEMINI_API_KEY = st.secrets["gemini"]["api_key"]
 genai.configure(api_key=GEMINI_API_KEY)
 
 # Generation settings to control the model's output
