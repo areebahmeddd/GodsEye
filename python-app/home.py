@@ -118,7 +118,7 @@ def home() -> None:
     )
     st.divider()
 
-    st.video('https://youtube.com/watch?v=GFApJyF8yc0')
+    st.video('https://youtube.com/watch?v=sWd4kOQU9as')
 
     st.markdown(
         "<h1 style='text-align: center;'>Team</h1>",

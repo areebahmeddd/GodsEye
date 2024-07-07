@@ -46,7 +46,7 @@ Additionally, the system includes a chatbot (powered by the Gemini API) that pro
 
 ## Getting Started
 
-Follow these steps to set up and run the GodsEye software on your local machine, or you can watch the [demo video](https://youtube.com/watch?v=GFApJyF8yc0).
+Follow these steps to set up and run the GodsEye software on your local machine, or you can watch the [demo video](https://youtube.com/watch?v=sWd4kOQU9as).
 
 ## Installation
 
