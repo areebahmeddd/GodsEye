@@ -55,7 +55,7 @@ async def url(request: Request) -> JSONResponse:
 
 if __name__ == '__main__':
     # Start the Streamlit app in a separate process
-    streamlit_process = subprocess.Popen('streamlit run python-app/home.py', shell=True)
+    streamlit_process = subprocess.Popen(['streamlit', 'run', 'python-app/home.py'])
 
     try:
         # Start the FastAPI server
