@@ -2,6 +2,8 @@
 import smtplib
 import streamlit as st
 
+from config import ADMIN_EMAIL, ADMIN_PASSWORD
+
 def feedback() -> None:
     # Configure Streamlit page settings
     st.set_page_config(
@@ -53,8 +55,8 @@ def feedback() -> None:
 
 def send_mail(name, email, message) -> str:
     # Load admin email and password from Streamlit secrets.toml
-    ADMIN_EMAIL = st.secrets["admin"]["email"]
-    ADMIN_PASSWORD = st.secrets["admin"]["app_pass"]
+    # ADMIN_EMAIL = st.secrets["admin"]["email"]
+    # ADMIN_PASSWORD = st.secrets["admin"]["app_pass"]
 
     # Construct the email subject and body
     subject = 'GodsEye Feedback Team'
