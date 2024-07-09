@@ -33,6 +33,7 @@ async def archive(request: Request) -> JSONResponse:
     day, month, year = date.split('-')
     formatted_date = f'{year}-{month}'
 
+    # NOTE: Currently, only NDTV archives are supported
     # Construct URL using formatted date and scrape NDTV archives for the specified topic
     url = f'https://archives.ndtv.com/articles/{formatted_date}.html'
     data = await ndtv_archive(url, topic, limit=3) # Limit set to 3 due to Gemini API and scraping limitations
