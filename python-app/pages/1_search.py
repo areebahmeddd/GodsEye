@@ -20,6 +20,7 @@ def search() -> None:
         unsafe_allow_html=True
     )
     st.divider()
+    print('search.py loaded')
 
     # Create a 3-column layout
     col1, col2, col3 = st.columns(3)

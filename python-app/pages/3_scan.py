@@ -14,6 +14,7 @@ def scan() -> None:
         unsafe_allow_html=True
     )
     st.divider()
+    print('scan.py loaded')
 
     st.markdown(
         """

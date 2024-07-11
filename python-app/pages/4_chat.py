@@ -16,6 +16,7 @@ def chat() -> None:
         unsafe_allow_html=True
     )
     st.divider()
+    print('chat.py loaded')
 
     # Initialize empty list to store chat messages in session state
     if 'messages' not in st.session_state:

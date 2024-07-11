@@ -18,6 +18,7 @@ def feedback() -> None:
         unsafe_allow_html=True
     )
     st.divider()
+    print('feedback.py loaded')
 
     # Create a form for users to submit feedback
     with st.form('contact_form'):

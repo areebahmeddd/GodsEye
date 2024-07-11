@@ -14,6 +14,7 @@ def technology() -> None:
         unsafe_allow_html=True
     )
     st.divider()
+    print('technology.py loaded')
 
     # Display the project logo and system architecture
     # st.image('assets/logo.png', use_column_width=True)

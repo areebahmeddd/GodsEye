@@ -20,6 +20,7 @@ def analyse() -> None:
         unsafe_allow_html=True
     )
     st.divider()
+    print('analyse.py loaded')
 
     # Create a 4-column layout
     col1, col2, col3, col4 = st.columns(4)

@@ -22,6 +22,7 @@ def home() -> None:
         unsafe_allow_html=True
     )
     st.divider()
+    print('home.py loaded')
     st.info('NOTE: The application is currently in alpha phase. Some features are limited and undergoing development.', icon=':material/info:')
 
     # Load news sources and topics for the search functionality
