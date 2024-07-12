@@ -9,8 +9,7 @@ from fastapi.responses import JSONResponse
 from scraper import ndtv_archive, ndtv_url
 # from database import database_history
 
-# Initialize FastAPI application instance
-app = FastAPI()
+app = FastAPI() # Initialize FastAPI application instance
 # Configure CORS middleware to allow all origins, methods, and headers
 app.add_middleware(
     CORSMiddleware,

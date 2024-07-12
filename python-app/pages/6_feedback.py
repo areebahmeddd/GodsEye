@@ -6,6 +6,7 @@ import streamlit as st
 from config import ADMIN_EMAIL, ADMIN_PASSWORD
 
 def feedback() -> None:
+    print('feedback.py loaded')
     # Configure Streamlit page settings
     st.set_page_config(
         page_title='Gods Eye - Feedback',
@@ -18,7 +19,6 @@ def feedback() -> None:
         unsafe_allow_html=True
     )
     st.divider()
-    print('feedback.py loaded')
 
     # Create a form for users to submit feedback
     with st.form('contact_form'):

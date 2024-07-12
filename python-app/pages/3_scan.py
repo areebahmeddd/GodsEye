@@ -2,6 +2,7 @@
 import streamlit as st
 
 def scan() -> None:
+    print('scan.py loaded')
     # Configure Streamlit page settings
     st.set_page_config(
         page_title='Gods Eye - Dashboard',
@@ -14,7 +15,6 @@ def scan() -> None:
         unsafe_allow_html=True
     )
     st.divider()
-    print('scan.py loaded')
 
     st.markdown(
         """

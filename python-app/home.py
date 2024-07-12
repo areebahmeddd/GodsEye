@@ -10,6 +10,7 @@ from utils import custom_css, person_card
 # NOTE: session_state is a Streamlit feature that allows storing data across pages
 # Reference: https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
 def home() -> None:
+    print('home.py loaded')
     # Configure Streamlit page settings
     st.set_page_config(
         page_title='Gods Eye',
@@ -22,7 +23,6 @@ def home() -> None:
         unsafe_allow_html=True
     )
     st.divider()
-    print('home.py loaded')
     st.info('NOTE: The application is currently in alpha phase. Some features are limited and undergoing development.', icon=':material/info:')
 
     # Load news sources and topics for the search functionality

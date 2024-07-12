@@ -8,6 +8,7 @@ from graphs import *
 # NOTE: session_state is a Streamlit feature that allows storing data across pages
 # Reference: https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
 def search() -> None:
+    print('search.py loaded')
     # Configure Streamlit page settings
     st.set_page_config(
         page_title='Gods Eye - Dashboard',
@@ -20,7 +21,6 @@ def search() -> None:
         unsafe_allow_html=True
     )
     st.divider()
-    print('search.py loaded')
 
     # Create a 3-column layout
     col1, col2, col3 = st.columns(3)

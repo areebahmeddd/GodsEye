@@ -2,6 +2,7 @@
 import streamlit as st
 
 def technology() -> None:
+    print('technology.py loaded')
     # Configure Streamlit page settings
     st.set_page_config(
         page_title='Gods Eye - Overview',
@@ -14,7 +15,6 @@ def technology() -> None:
         unsafe_allow_html=True
     )
     st.divider()
-    print('technology.py loaded')
 
     # Display the project logo and system architecture
     # st.image('assets/logo.png', use_column_width=True)

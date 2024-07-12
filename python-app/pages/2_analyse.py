@@ -8,8 +8,9 @@ from graphs import *
 # NOTE: session_state is a Streamlit feature that allows storing data across pages
 # Reference: https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
 def analyse() -> None:
+    print('analyse.py loaded')
+    # Configure Streamlit page settings
     st.set_page_config(
-        # Configure Streamlit page settings
         page_title='Gods Eye - Dashboard',
         page_icon='assets/favicon.png',
         layout='wide',
@@ -20,7 +21,6 @@ def analyse() -> None:
         unsafe_allow_html=True
     )
     st.divider()
-    print('analyse.py loaded')
 
     # Create a 4-column layout
     col1, col2, col3, col4 = st.columns(4)

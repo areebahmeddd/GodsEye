@@ -4,6 +4,7 @@ import streamlit as st
 from gemini import chat_session
 
 def chat() -> None:
+    print('chat.py loaded')
     # Configure Streamlit page settings
     st.set_page_config(
         page_title='Gods Eye - Chat',
@@ -16,7 +17,6 @@ def chat() -> None:
         unsafe_allow_html=True
     )
     st.divider()
-    print('chat.py loaded')
 
     # Initialize empty list to store chat messages in session state
     if 'messages' not in st.session_state:
