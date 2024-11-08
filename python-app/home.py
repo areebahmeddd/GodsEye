@@ -19,14 +19,14 @@ def home() -> None:
         initial_sidebar_state='collapsed'
     )
     st.markdown(
-        "<h1 style='text-align: center;'>Gods Eye: Automated Feedback System</h1>",
+        "<h1 style='text-align: center;'>Gods Eye: Automated News Feedback System</h1>",
         unsafe_allow_html=True
     )
     st.divider()
     st.info('NOTE: The application is currently in alpha phase. Some features are limited and undergoing development.', icon=':material/info:')
 
     # Load news sources and topics for the search functionality
-    with open('news_config.json') as file:
+    with open('metadata/news_config.json') as file:
         news_data = json.load(file)
 
     # Create a 3-column layout with custom widths

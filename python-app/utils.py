@@ -19,8 +19,8 @@ def custom_css() -> None:
         unsafe_allow_html=True
     )
 
-# Function to create a person card component with name, image, role, email, GitHub, and LinkedIn links
-def person_card(name, image_path, role, email, github_link, linkedin_link) -> None:
+# Function to create a person card component with name, image, role, email, github, and linkedin links
+def person_card(name: str, image_path: str, role: str, email: str, github_link: str, linkedin_link: str) -> None:
     custom_css()
     st.image(image_path, use_column_width=True)
     st.markdown(

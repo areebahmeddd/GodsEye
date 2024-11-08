@@ -51,7 +51,8 @@ def pie_chart(title: str, labels: List[str], values: List[float], colors: List[s
     )
     plotly_chart(figure, use_container_width=True)
 
-def horizontal_bar_chart(title: str, counts: List[int], labels: List[str], x_label: str, y_label: str, colors: List[str]) -> None:
+def horizontal_bar_chart(title: str, counts: List[int], labels: List[str], x_label: str, y_label: str,
+                         colors: List[str]) -> None:
     # Create a horizontal bar chart using Plotly Express
     figure = px.bar(
         title=title,

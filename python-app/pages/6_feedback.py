@@ -55,7 +55,7 @@ def feedback() -> None:
         unsafe_allow_html=True
     )
 
-def send_mail(name, email, message) -> str:
+def send_mail(name: str, email: str, message: str) -> str:
     # Load admin email and password from Streamlit secrets.toml
     # ADMIN_EMAIL = st.secrets["admin"]["email"]
     # ADMIN_PASSWORD = st.secrets["admin"]["app_pass"]

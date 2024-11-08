@@ -15,7 +15,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=['*'],
     allow_methods=['*'],
-    allow_headers=['*']
+    allow_headers=['*'],
+    allow_credentials=True
 )
 
 @app.post('/api/archive')
@@ -25,6 +26,7 @@ async def archive(request: Request) -> JSONResponse:
     source = request_body.get('source')
     date = request_body.get('date')
     topic = request_body.get('topic')
+
     if not source or not date or not topic:
         raise HTTPException(status_code=400, detail='Source, date, or topic is missing')
 
@@ -53,10 +55,13 @@ async def url(request: Request) -> JSONResponse:
     data = await ndtv_url(url)
     return JSONResponse(data)
 
+@app.post('/api/pdf')
+async def pdf(request: Request) -> JSONResponse:
+    pass # Feature under development
+
 if __name__ == '__main__':
     # Start the Streamlit app in a separate process
     streamlit_process = subprocess.Popen(['streamlit', 'run', 'python-app/home.py'])
-
     try:
         # Start the FastAPI server
         uvicorn.run(app)
