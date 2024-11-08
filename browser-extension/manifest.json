@@ -1,6 +1,6 @@
 {
   "name": "Gods Eye",
-  "description": "Automated Feedback System",
+  "description": "Automated News Feedback System",
   "version": "1.0.2",
   "manifest_version": 3,
   "background": {
