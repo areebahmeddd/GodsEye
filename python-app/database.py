@@ -1,24 +1,22 @@
-import firebase_admin
-from firebase_admin import credentials, firestore
+from pymongo import MongoClient
 
-credential = credentials.Certificate('firebase-key.json')
-firebase_admin.initialize_app(credential)
-database = firestore.client()
-
-news_reference = database.collection('news')
+client = MongoClient('mongodb://localhost:27017/')
+database = client['news_database']
+news_collection = database['news']
 
 def database_history(document_name, data):
     try:
-        news_document = news_reference.document(document_name)
-        news_data = news_document.get().to_dict()
-
-        if news_data == data:
+        news_document = news_collection.find_one({'_id': document_name})
+        if news_document and news_document.get('news_data') == data:
             print(f'[Database] News data for "{document_name}" already exists.')
             return
 
-        news_document.set({
-            'news_data': data
-        }, merge=True)
+        news_collection.update_one(
+            {'_id': document_name},
+            {'$set': {'news_data': data}},
+            upsert=True
+        )
+
         print(f'[Database] News data for "{document_name}" stored.')
     except Exception as exc:
-        print(f'Firestore storage error:\n {exc}')
+        print(f'MongoDB storage error:\n {exc}')
