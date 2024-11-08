@@ -1,4 +1,5 @@
-.venv
-__pycache__
+# Python related
+.venv/
+__pycache__/
 .env
 secrets.toml
